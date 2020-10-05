@@ -21,16 +21,22 @@ jobs:
         node-version: [10.x, 12.x, 14.x]
 
     steps:
-    - uses: actions/checkout@v2
+    - name: checkout repo
+      uses: actions/checkout@v2
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
-    steps:
+  
+    - name: install dependencies
+      run: npm ci
+
+    - name: build
+      run: npm run build --if-present
+
     - name: runtest
-    - run: npm test
-    steps:
+      run: npm test
+    
     - name: done
-    - run: echo "Done with build"
+      run: echo "Done with build"
